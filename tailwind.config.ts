@@ -133,6 +133,26 @@ export default {
 				scaleIn: {
 					'0%': { transform: 'scale(0.9)', opacity: '0' },
 					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				// New animations
+				rotateY: {
+					'0%': { transform: 'rotateY(0deg)' },
+					'100%': { transform: 'rotateY(360deg)' }
+				},
+				wave: {
+					'0%': { transform: 'rotate(0.0deg)' },
+					'10%': { transform: 'rotate(14.0deg)' },
+					'20%': { transform: 'rotate(-8.0deg)' },
+					'30%': { transform: 'rotate(14.0deg)' },
+					'40%': { transform: 'rotate(-4.0deg)' },
+					'50%': { transform: 'rotate(10.0deg)' },
+					'60%': { transform: 'rotate(0.0deg)' },
+					'100%': { transform: 'rotate(0.0deg)' }
+				},
+				meteor: {
+					'0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+					'70%': { opacity: '1' },
+					'100%': { transform: 'rotate(215deg) translateX(-500px)', opacity: '0' }
 				}
 			},
 			animation: {
@@ -147,17 +167,33 @@ export default {
 				'typing': 'typing 3.5s steps(40, end), blink .75s step-end infinite',
 				'float': 'float 6s ease-in-out infinite',
 				'spin': 'spin 8s linear infinite',
-				'shimmer': 'shimmer 2s infinite linear'
+				'shimmer': 'shimmer 2s infinite linear',
+				// New animations
+				'rotate-y': 'rotateY 3s linear infinite',
+				'wave': 'wave 2s linear infinite',
+				'meteor': 'meteor 5s linear infinite'
 			},
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
-				roboto: ['Roboto', 'sans-serif']
+				roboto: ['Roboto', 'sans-serif'],
+				space: ['Space Grotesk', 'sans-serif']
 			},
 			backgroundImage: {
 				'gradient-primary': 'linear-gradient(45deg, #4A90E2, #D32F2F)',
 				'gradient-primary-alt': 'linear-gradient(135deg, #4A90E2, #D32F2F)',
 				'gradient-dark': 'linear-gradient(45deg, #1F1F1F, #3A3A3A)',
 				'gradient-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))'
+			},
+			transitionProperty: {
+				'height': 'height',
+				'spacing': 'margin, padding',
+				'width': 'width',
+				'transform': 'transform',
+			},
+			boxShadow: {
+				'neon-blue': '0 0 5px rgba(74, 144, 226, 0.5), 0 0 20px rgba(74, 144, 226, 0.3)',
+				'neon-pink': '0 0 5px rgba(211, 47, 47, 0.5), 0 0 20px rgba(211, 47, 47, 0.3)',
+				'neon-mix': '0 0 5px rgba(74, 144, 226, 0.5), 0 0 20px rgba(211, 47, 47, 0.3)',
 			}
 		}
 	},
