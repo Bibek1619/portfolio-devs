@@ -90,6 +90,22 @@ const Hero = () => {
       }
     }
   };
+
+  // Text animation variants
+  const roleTextVariants = {
+    initial: { opacity: 0, y: -20 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        delay: 0.5
+      }
+    }
+  };
+
+  const titleLetters = "Full-Stack Developer & Designer".split("");
   
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -119,7 +135,25 @@ const Hero = () => {
               className="inline-block"
             >
               <div className="inline-block px-4 py-2 rounded-full mb-4 bg-white/10 backdrop-blur-md border border-white/20 glow-sm">
-                <p className="text-sm md:text-base text-white/90 font-medium">Full-Stack Developer & Designer</p>
+                <div className="overflow-hidden">
+                  <div className="flex justify-center lg:justify-start">
+                    {titleLetters.map((letter, index) => (
+                      <motion.span
+                        key={index}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ 
+                          delay: 0.5 + index * 0.03, 
+                          duration: 0.3,
+                          ease: "easeOut"
+                        }}
+                        className="text-sm md:text-base text-white/90 font-medium"
+                      >
+                        {letter === " " ? "\u00A0" : letter}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
             

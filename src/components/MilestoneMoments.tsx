@@ -99,6 +99,18 @@ const MilestoneMoments = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } }
   };
 
+  // Photo animation variants
+  const photoVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.1, transition: { duration: 0.6 } }
+  };
+
+  // Card flip animation
+  const cardFlipVariants = {
+    initial: { rotateY: 0 },
+    hover: { rotateY: 180, transition: { duration: 0.8 } }
+  };
+
   return (
     <section
       id="milestones"
@@ -134,16 +146,24 @@ const MilestoneMoments = () => {
               <CarouselItem key={milestone.id} className="md:basis-1/2 lg:basis-1/3">
                 <motion.div variants={item}>
                   <div className="p-2 h-full">
-                    <div className="milestone-card group h-full perspective">
-                      <div className="relative h-full w-full transition-all duration-700 preserve-3d hover:rotate-y-180 cursor-pointer">
+                    <motion.div 
+                      className="milestone-card group h-full perspective"
+                      initial="initial"
+                      whileHover="hover"
+                    >
+                      <motion.div 
+                        className="relative h-full w-full preserve-3d cursor-pointer"
+                        variants={cardFlipVariants}
+                      >
                         {/* Front of card */}
                         <div className="absolute inset-0 backface-hidden">
                           <Card className="bg-black/50 border border-blue-700/30 backdrop-blur-sm overflow-hidden h-full">
                             <div className="relative h-48 overflow-hidden">
-                              <img 
+                              <motion.img 
                                 src={milestone.image} 
                                 alt={milestone.title} 
-                                className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                                className="w-full h-full object-cover"
+                                variants={photoVariants}
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
                                 <p className="text-sm font-medium text-blue-300">{milestone.date}</p>
@@ -167,8 +187,8 @@ const MilestoneMoments = () => {
                             </CardContent>
                           </Card>
                         </div>
-                      </div>
-                    </div>
+                      </motion.div>
+                    </motion.div>
                   </div>
                 </motion.div>
               </CarouselItem>
