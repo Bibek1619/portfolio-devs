@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import MilestoneMoments from "@/components/MilestoneMoments";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { useSmoothScroll } from "@/utils/animations";
@@ -62,6 +63,7 @@ const Index = () => {
         <Hero />
         <About />
         <Skills />
+        <MilestoneMoments />
         <Projects />
         <Contact />
       </main>

@@ -1,6 +1,15 @@
 
 import { useState, useEffect, useRef } from "react";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, ArrowRight } from "lucide-react";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface Project {
   id: number;
@@ -49,44 +58,32 @@ const projects: Project[] = [
     githubUrl: "#",
     liveUrl: "#"
   },
+  {
+    id: 5,
+    title: "Portfolio Website",
+    description: "A modern, responsive portfolio website showcasing my skills, projects, and experience in web development.",
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80",
+    tags: ["React", "Tailwind CSS", "Framer Motion"],
+    githubUrl: "#",
+    liveUrl: "#"
+  },
+  {
+    id: 6,
+    title: "Weather Forecast App",
+    description: "A visually stunning weather application with real-time forecasts, location-based weather data, and interactive maps.",
+    image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+    tags: ["React", "OpenWeather API", "Mapbox", "Tailwind"],
+    githubUrl: "#",
+    liveUrl: "#"
+  }
 ];
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
 
   return (
-    <div
-      ref={cardRef}
-      className={`project-card transform transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-      }`}
-      style={{ transitionDelay: `${(project.id - 1) * 150}ms` }}
+    <Card
+      className="project-card h-full bg-black/60 border border-blue-700/30 backdrop-blur-sm overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -141,7 +138,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           </a>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
@@ -188,10 +185,28 @@ const Projects = () => {
       >
         <h2 className="section-title text-white mb-16">Featured Projects</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+        <Carousel className="w-full max-w-6xl mx-auto">
+          <CarouselContent>
+            {projects.map((project) => (
+              <CarouselItem key={project.id} className="md:basis-1/2 lg:basis-1/3 p-2">
+                <ProjectCard project={project} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-1 lg:-left-12 bg-blue-900/20 backdrop-blur-sm border-blue-700/30 text-white hover:bg-blue-800/50" />
+          <CarouselNext className="right-1 lg:-right-12 bg-blue-900/20 backdrop-blur-sm border-blue-700/30 text-white hover:bg-blue-800/50" />
+        </Carousel>
+
+        <div className="flex justify-center mt-12">
+          <a 
+            href="https://github.com/yourusername" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 px-6 py-3 bg-blue-900/20 hover:bg-blue-800/40 text-white rounded-full border border-blue-700/30 transition-all duration-300"
+          >
+            <span>View more on GitHub</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
       </div>
     </section>
