@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface Milestone {
   id: number;
@@ -159,12 +160,19 @@ const MilestoneMoments = () => {
                         <div className="absolute inset-0 backface-hidden">
                           <Card className="bg-black/50 border border-blue-700/30 backdrop-blur-sm overflow-hidden h-full">
                             <div className="relative h-48 overflow-hidden">
-                              <motion.img 
-                                src={milestone.image} 
-                                alt={milestone.title} 
-                                className="w-full h-full object-cover"
-                                variants={photoVariants}
-                              />
+                              <AspectRatio ratio={16/9} className="bg-black/40">
+                                <motion.img 
+                                  src={milestone.image} 
+                                  alt={milestone.title} 
+                                  className="w-full h-full object-cover"
+                                  variants={photoVariants}
+                                  onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = "https://images.unsplash.com/photo-1544147247-d0a1bf93f58a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3";
+                                  }}
+                                  loading="eager"
+                                />
+                              </AspectRatio>
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
                                 <p className="text-sm font-medium text-blue-300">{milestone.date}</p>
                               </div>
