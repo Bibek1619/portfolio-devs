@@ -1,41 +1,39 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { loadSlim } from "tsparticles-slim";
 import type { Engine } from "tsparticles-engine";
 
 const ParticleBackground = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Initialize the particles engine
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
+    await loadSlim(engine);
     setIsLoaded(true);
   }, []);
 
   useEffect(() => {
-    // Reduce particle count on mobile devices
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        // Mobile configuration
-        window.particlesConfig = {
-          particles: {
-            number: { value: 30 },
-          },
-        };
-      } else {
-        // Desktop configuration
-        window.particlesConfig = {
-          particles: {
-            number: { value: 80 },
-          },
-        };
-      }
+    // Check if device is mobile and set state
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    
+    // Initial check
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener("resize", checkMobile);
+    
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  // Get particle count based on device type
+  const getParticleCount = () => {
+    return isMobile ? 30 : 80;
+  };
 
   return (
     <div className={`particle-container transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
@@ -55,7 +53,7 @@ const ParticleBackground = () => {
           fpsLimit: 60,
           particles: {
             number: {
-              value: 80,
+              value: getParticleCount(),
               density: {
                 enable: true,
                 value_area: 800,
